@@ -144,6 +144,33 @@ class GrafoTiendas:
         for i, comp in enumerate(componentes, 1):
             print(f"  Componente {i}: {', '.join(sorted(comp))}")
 
+    def eliminar_tienda(self, tienda):
+        if tienda not in self.tiendas:
+            print(f"La tienda '{tienda}' no existe.")
+            return
+        self.tiendas.remove(tienda)
+        del self.grafo[tienda]
+        for origen in self.tiendas:
+            self.grafo[origen] = [(d, dist) for d, dist in self.grafo[origen] if d != tienda]
+        print(f"Tienda '{tienda}' eliminada.")
+
+    def eliminar_ruta(self, origen, destino):
+        if origen not in self.tiendas:
+            print(f"La tienda '{origen}' no existe.")
+            return
+        self.grafo[origen] = [(d, dist) for d, dist in self.grafo[origen] if d != destino]
+        print(f"Ruta {origen} -> {destino} eliminada.")
+
+    def buscar_tienda(self, tienda):
+        if tienda not in self.tiendas:
+            print(f"La tienda '{tienda}' no existe.")
+            return
+        print(f"\nTienda: {tienda}")
+        if self.grafo[tienda]:
+            for dest, dist in self.grafo[tienda]:
+                print(f"-> {dest} ({dist} km)")
+        else:
+            print("Sin rutas")
 
 class ListaPedidos:
     def __init__(self):
@@ -314,7 +341,10 @@ class ListaPedidos:
         encontrados = self._rango_arbol(self.raiz, num_min, num_max)
         if not encontrados:
             print("No hay pedidos en ese rango.")
-
+            
+    def eliminar_tienda_del_grafo(self, tienda):
+        self.grafo_tiendas.eliminar_tienda(tienda)
+        
     def _rango_arbol(self, nodo, num_min, num_max):
         if nodo is None:
             return False
