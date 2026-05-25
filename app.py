@@ -4,10 +4,10 @@ from arbol_binario_pedidos import ArbolPedidos as ListaV2
 from grafos_pedidos import ListaPedidos as ListaFinal
 from grafos_pedidos import GrafoTiendas
 
-# Configuración de página limpia y profesional
+
 st.set_page_config(page_title="Sistema de Gestion de Pedidos", layout="wide")
 
-# Estilos CSS: Interfaz elegante, oscura y minimalista de alta fidelidad
+
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -63,9 +63,9 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.title("Sistema de Gestión de Pedidos")
-st.caption("Estructuras de Datos Avanzadas | Lista Enlazada | Arbol Binario | Grafo")
+st.caption("Estructuras de Datos | Lista Enlazada | Arbol Binario | Grafo")
 
-# Lógica Corta: Inicialización limpia en un diccionario dentro del estado
+
 if 'estructuras' not in st.session_state:
     st.session_state.estructuras = {
         "Final (Grafo)": ListaFinal(),
@@ -74,7 +74,7 @@ if 'estructuras' not in st.session_state:
     }
     st.session_state.grafo_aux = GrafoTiendas()
 
-# Sidebar de configuración
+
 with st.sidebar:
     st.markdown("## Configuración")
     opcion = st.radio(
@@ -86,7 +86,7 @@ with st.sidebar:
     st.markdown(f"Modo activo: **{opcion}**")
     st.caption("Los cambios en los pedidos se sincronizan de forma automática.")
 
-# Abstracción de datos: reduce condicionales innecesarias en el cuerpo del código
+
 sistema = st.session_state.estructuras[opcion]
 grafo_activo = sistema.grafo_tiendas if opcion == "Final (Grafo)" else st.session_state.grafo_aux
 
